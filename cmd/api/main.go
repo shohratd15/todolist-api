@@ -1,11 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/shohratd15/todolist-api/internal/db"
+	"github.com/shohratd15/todolist-api/internal/handlers"
 )
 
 func main() {
@@ -13,9 +13,8 @@ func main() {
 
 	port := "8080"
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello, ToDo API!"))
-	})
+	mux.HandleFunc("/tasks",handlers.TasksHandler)
+	mux.HandleFunc("/tasks/",handlers.TaskHandler)
 
 	log.Println("Starting server on port", port)
 	err := http.ListenAndServe(":"+port, mux)

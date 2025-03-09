@@ -14,7 +14,7 @@ var DB *pgxpool.Pool
 func Connect() {
 	dsn := os.Getenv("DATABASE_URL")
 	if dsn == "" {
-		dsn = "postgres://todouser:secret@locahost:5432/todolist?sslmode=disable"
+		dsn = "postgres://todouser:secret@localhost:5432/todolist?sslmode=disable"
 	}
 
 	var err error

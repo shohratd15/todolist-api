@@ -1,3 +1,6 @@
 CREATE DATABASE todolist;
 CREATE USER todouser WITH ENCRYPTED PASSWORD 'secret';
 GRANT ALL PRIVILEGES ON DATABASE todolist TO todouser;
+
+GRANT USAGE ON SCHEMA public TO todouser;
+GRANT CREATE ON SCHEMA public TO todouser;
