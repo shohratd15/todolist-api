@@ -3,16 +3,20 @@ package main
 import (
 	"log"
 	"net/http"
-	"os"
 
+	"github.com/shohratd15/todolist-api/internal/config"
 	"github.com/shohratd15/todolist-api/internal/db"
 	"github.com/shohratd15/todolist-api/internal/handlers"
 	"github.com/shohratd15/todolist-api/internal/middleware"
 )
 
 func main() {
-	os.Setenv("JWT_SECRET", "supersecretkey") // В реальном проекте использовать ENV
-	db.Connect()
+	cfg, err := config.LoadConfig()
+	if err != nil {
+		log.Fatalf("Failed to load config: %v", err)
+	}
+
+	db.Connect(cfg)
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/register", handlers.RegisterHandler)

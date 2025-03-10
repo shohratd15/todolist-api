@@ -4,18 +4,16 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/shohratd15/todolist-api/internal/config"
 )
 
 var DB *pgxpool.Pool
 
-func Connect() {
-	dsn := os.Getenv("DATABASE_URL")
-	if dsn == "" {
-		dsn = "postgres://todouser:secret@localhost:5432/todolist?sslmode=disable"
-	}
+func Connect(cfg *config.Config) {
+	dsn := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable",
+		cfg.DbUser, cfg.DbPass, cfg.DbHost, cfg.DbPort, cfg.DbName)
 
 	var err error
 	DB, err = pgxpool.New(context.Background(), dsn)
